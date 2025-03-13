@@ -61,4 +61,11 @@ module tb_sd_spi_writer;
             $display("Test Failed: SPI signals did not behave as expected.");
         end
 
-        // Observe
+        // Observe MOSI data shifting
+        #100;
+        
+        // End simulation
+        $finish;
+    end
+
+endmodule
