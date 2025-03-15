@@ -16,6 +16,13 @@ module spi_master #(
     reg spi_clk_en;
     reg [1:0] state;  // FSM State Variable
 
+    // Double Flip-Flop Synchronizer for MISO (Fixes CDC issue)
+    reg [1:0] miso_sync;
+    always @(posedge clk) begin
+        miso_sync <= {miso_sync[0], miso}; // CDC Synchronizer
+    end
+    wire miso_stable = miso_sync[1]; // Synchronized MISO data
+
     // State Encoding
     parameter IDLE = 2'b00, 
               START = 2'b01, 
@@ -58,7 +65,7 @@ module spi_master #(
 
                 TRANSFER: begin
                     if (spi_clk_en) begin
-                        dout[bit_cnt] <= miso;  // Read from thermocouple
+                        dout[bit_cnt] <= miso_stable;  // Read from synchronized MISO
                         if (bit_cnt == 0) begin
                             state <= DONE;
                         end else begin
@@ -76,6 +83,7 @@ module spi_master #(
         end
     end
 endmodule
+
 
 
 
