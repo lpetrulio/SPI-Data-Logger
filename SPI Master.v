@@ -15,6 +15,7 @@ module spi_master #(
     reg [7:0] clk_count;
     reg spi_clk_en;
     reg [1:0] state;  // FSM State Variable
+    reg [15:0] dout_pipeline [1:0]; // Pipelining for timing optimization
 
     // Double Flip-Flop Synchronizer for MISO (Fixes CDC issue)
     reg [1:0] miso_sync;
@@ -65,7 +66,10 @@ module spi_master #(
 
                 TRANSFER: begin
                     if (spi_clk_en) begin
-                        dout[bit_cnt] <= miso_stable;  // Read from synchronized MISO
+                        dout_pipeline[0] <= dout_pipeline[1];
+                        dout_pipeline[1] <= miso_stable; // Pipelined data capture
+                        dout[bit_cnt] <= dout_pipeline[1]; // Assign pipelined data to output
+
                         if (bit_cnt == 0) begin
                             state <= DONE;
                         end else begin
@@ -83,6 +87,7 @@ module spi_master #(
         end
     end
 endmodule
+
 
 
 
