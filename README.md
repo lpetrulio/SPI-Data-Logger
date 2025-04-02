@@ -1,9 +1,9 @@
 # SPI High-Speed Data Logger – Arty A7-100T FPGA  
 
-## 📌 Project Overview  
+## Project Overview  
 This FPGA-based **SPI High-Speed Data Logger** captures real-time temperature data from a **thermocouple sensor** using SPI communication and writes it to an **SD card** for later analysis. The system is optimized for **low latency, high-speed data acquisition, and efficient storage**.
 
-## 🎯 Features  
+## Features  
 - **SPI Interface**: Communicates with a thermocouple sensor (e.g., MAX31855) for temperature readings.  
 - **High-Speed Data Logging**: Captures and stores temperature data in real time.  
 - **SD Card Storage**: Writes logged data to an SD card 
@@ -13,14 +13,14 @@ This FPGA-based **SPI High-Speed Data Logger** captures real-time temperature da
 
 ---
 
-## 🛠️ Hardware & Tools  
-### **🔧 Hardware Components**
+##  Hardware & Tools  
+### ** Hardware Components**
 - **FPGA Board**: Arty A7-100T  
 - **Thermocouple Sensor**: MAX31855 (SPI-based)  
 - **SD Card Module**: SPI-compatible SD card breakout  
 - **Jumper Wires**: Female-to-male for sensor & SD card connection  
 
-### **📦 Software & Toolchain**
+### ** Software & Toolchain**
 - **Vivado** – FPGA design & simulation  
 - **Verilog** – HDL for hardware description  
 - **UART Terminal** – Serial data visualization  
